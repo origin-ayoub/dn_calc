@@ -101,6 +101,7 @@ export default function App() {
 
                 {/* Inputs */}
                 <PriceInput inputValue={inputValue} setInputValue={setInputValue} />
+                <hr className="w-full my-6 mb-7 border-1"></hr>
 
                 {/* Config controls for each market */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
