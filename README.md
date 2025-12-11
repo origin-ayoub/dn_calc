@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/769ab941-db47-4873-83f0-a05a95d3de56/deploy-status)](https://app.netlify.com/projects/dn-calc/deploys)
+
 # Domain Price Calculator
 
 A fast and accurate utility for **domain investors** who want to understand how different marketplaces affect their final payout.
