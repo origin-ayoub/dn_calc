@@ -10,6 +10,7 @@ import ControlPb from "./components/ControlPb";
 import ControlSedo from "./components/ControlSedo";
 import ControlAtom from "./components/ControlAtom";
 import ControlAfternic from "./components/ControlAfternic";
+import TableCard from "./components/TableCard";
 
 
 export default function App() {
@@ -24,6 +25,21 @@ export default function App() {
 
     const markets = useMemo(() => {
         return [
+            {
+                id: "atom",
+                name: "Atom",
+                desc: () => atomListing === "paylink" ? "Atom (PAYLINK) 4.5%" :
+                    atomListing === "standard" ? "Atom (STANDARD) 7.5%" :
+                        atomListing === "plus" ? "Atom (PLUS) 15%" :
+                            atomListing === "premium" ? (
+                                atomNoCoin && price <= 4998 ? "Atom (PREMIUM — No Coin) 35%" :
+                                    price <= 4998 ? "Atom (PREMIUM) 30%" :
+                                        price <= 49999 ? "Atom (PREMIUM) 25%" :
+                                            price <= 74999 ? "Atom (PREMIUM) 20%" :
+                                                price >= 75000 ? "Atom (PREMIUM) 15%" :
+                                                    "Atom (PREMIUM)") : "Atom — Invalid",
+                commissionFn: (p) => commissionAtom(p, atomListing, atomNoCoin),
+            },
             {
                 id: "sedo",
                 name: "Sedo",
@@ -54,21 +70,7 @@ export default function App() {
                 desc: () => "Flat 3%",
                 commissionFn: (p) => commissionUnstoppable(p),
             },
-            {
-                id: "atom",
-                name: "Atom",
-                desc: () => atomListing === "paylink" ? "Atom (PAYLINK) 4.5%" :
-                    atomListing === "standard" ? "Atom (STANDARD) 7.5%" :
-                        atomListing === "plus" ? "Atom (PLUS) 15%" :
-                            atomListing === "premium" ? (
-                                atomNoCoin && price <= 4998 ? "Atom (PREMIUM — No Coin) 35%" :
-                                    price <= 4998 ? "Atom (PREMIUM) 30%" :
-                                        price <= 49999 ? "Atom (PREMIUM) 25%" :
-                                            price <= 74999 ? "Atom (PREMIUM) 20%" :
-                                                price >= 75000 ? "Atom (PREMIUM) 15%" :
-                                                    "Atom (PREMIUM)") : "Atom — Invalid",
-                commissionFn: (p) => commissionAtom(p, atomListing, atomNoCoin),
-            },
+
         ];
     }, [sedoType, afternicNameservers, porkbunMode, atomListing, atomNoCoin, price]);
 
@@ -102,12 +104,12 @@ export default function App() {
 
                 {/* Config controls for each market */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <ControlSedo sedoType={sedoType} setSedoType={setSedoType} />
-                    <ControlPb porkbunMode={porkbunMode} setPorkbunMode={setPorkbunMode} />
                     <ControlAtom price={price} atomNoCoin={atomNoCoin} atomListing={atomListing}
                         setAtomListing={setAtomListing}
                         setAtomNoCoin={setAtomNoCoin}
                     />
+                    <ControlSedo sedoType={sedoType} setSedoType={setSedoType} />
+                    <ControlPb porkbunMode={porkbunMode} setPorkbunMode={setPorkbunMode} />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
@@ -116,17 +118,25 @@ export default function App() {
                         setAfternicNameservers={setAfternicNameservers}
                     />
 
-                    <div className="p-3 border rounded-lg flex flex-col justify-between">
-                        <p className="font-semibold">Other Markets · (Configured automatically)</p>
-                        <ul className="list-disc ps-5">
-                            <li className="text-sm">Spaceship: 5%</li>
-                            <li className="text-sm">Unstoppable Domains: 3%</li>
+                    <div className="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm space-y-4">
+
+                        {/* Header */}
+                        <p className="text-[15px] font-semibold text-slate-900">
+                            Other Markets · (Configured Automatically)
+                        </p>
+
+                        {/* List */}
+                        <ul className="list-disc list-inside space-y-1">
+                            <li className="text-[14px] text-slate-700">Spaceship: 5%</li>
+                            <li className="text-[14px] text-slate-700">Unstoppable Domains: 3%</li>
                         </ul>
                     </div>
                 </div>
 
+                <hr className="w-full my-6 mb-7 border-1"></hr>
+
                 {/* Result table */}
-                <div className="relative overflow-x-auto w-full">
+                <div className="relative overflow-x-auto w-full hidden sm:block">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="text-sm text-slate-600 text-center md:text-left">
@@ -143,6 +153,13 @@ export default function App() {
                             ))}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Result Mobile cards */}
+                <div className="sm:hidden space-y-4">
+                    {rows?.map((r) => (
+                        <TableCard r={r} key={r?.id} />
+                    ))}
                 </div>
             </div>
         </div>
