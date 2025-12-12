@@ -10,7 +10,7 @@ export default function ControlAtom({ price, atomListing, atomNoCoin, setAtomLis
                 id="atomFees"
                 value={atomListing}
                 onChange={(e) => setAtomListing(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-slate-300 bg-white text-[15px] text-slate-800 p-4 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none"
+                className="mt-1 w-full rounded-xl border border-slate-300 bg-white text-[15px] text-slate-800 p-3 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none"
             >
                 <option value="paylink">Atom Pay Link — 4.5%</option>
                 <option value="standard">Standard Listings — 7.5%</option>
