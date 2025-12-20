@@ -3,9 +3,9 @@ export default function ControlAfternic({ afternicNameservers, setAfternicNamese
         <div className="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
 
             {/* Title */}
-            <h3 className="text-[16px] font-semibold text-slate-900 mb-4">
+            <label htmlFor="afternicRes" className="text-[16px] font-semibold text-slate-900 mb-4">
                 Afternic (Boost)
-            </h3>
+            </label>
 
             {/* Row */}
             <div className="flex items-center justify-between">
@@ -15,6 +15,7 @@ export default function ControlAfternic({ afternicNameservers, setAfternicNamese
 
                 {/* Switch */}
                 <button
+                	id="afternicRes"
                     type="button"
                     name="nsOn"
                     onClick={() => setAfternicNameservers(!afternicNameservers)}
