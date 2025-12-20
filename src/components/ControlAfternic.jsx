@@ -15,7 +15,7 @@ export default function ControlAfternic({ afternicNameservers, setAfternicNamese
 
                 {/* Switch */}
                 <button
-                	id="afternicRes"
+                    id="afternicRes"
                     type="button"
                     name="nsOn"
                     onClick={() => setAfternicNameservers(!afternicNameservers)}
